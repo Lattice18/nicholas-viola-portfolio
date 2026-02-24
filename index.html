@@ -657,6 +657,7 @@
   }
 
   .reveal.visible { opacity: 1; transform: none; }
+  .no-js .reveal { opacity: 1; transform: none; }
 
   /* RESPONSIVE */
   @media (max-width: 900px) {
@@ -975,7 +976,7 @@
   <span class="clearance-badge">Active DoD Secret Clearance</span>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
@@ -991,4 +992,15 @@
   const navLinks = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEa
+    sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 100;
+    if (window.scrollY >= sectionTop) current = section.getAttribute('id');
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
+  });
+  });
+</script>
+</body>
+</html>
