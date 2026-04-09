@@ -243,9 +243,8 @@
     #portfolio { background: var(--bg); }
     .portfolio-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 1.5rem;
-      align-items: start;
     }
     .card {
       background: var(--bg3);
@@ -256,7 +255,30 @@
       flex-direction: column;
       transition: border-color 0.2s, transform 0.2s;
     }
+    .card.card-featured {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      align-items: stretch;
+    }
+    .card.card-featured .card-img {
+      width: 55%;
+      aspect-ratio: unset;
+      height: 100%;
+      min-height: 340px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .card.card-featured .card-body {
+      flex: 1;
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .card.card-featured .card-title { font-size: 1.8rem; }
+    .card.card-featured .card-desc { font-size: 0.92rem; }
     .card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+    .card.card-featured:hover { transform: none; border-color: var(--cyan); }
     .card-img {
       width: 100%;
       aspect-ratio: 16/9;
@@ -267,6 +289,11 @@
     }
     .card:hover .card-img { filter: saturate(1); }
     .card-body { padding: 1.4rem; flex: 1; }
+    @media (max-width: 900px) {
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .card.card-featured { flex-direction: column; }
+      .card.card-featured .card-img { width: 100%; min-height: unset; aspect-ratio: 16/9; }
+    }
     .card-meta {
       font-family: var(--ff-mono);
       font-size: 0.65rem;
@@ -617,7 +644,7 @@
     <div class="section-title">Portfolio</div>
     <div class="portfolio-grid">
 
-      <a class="card" href="#">
+      <a class="card card-featured" href="#">
         <img class="card-img"
           src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/TeslaRenderV2.2Dark.jpg"
           alt="Tesla Technology HUD Infographic Render" />
