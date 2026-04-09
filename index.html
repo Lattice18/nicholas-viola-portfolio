@@ -440,6 +440,74 @@
 
   .port-link::before { content: '→'; flex-shrink: 0; }
 
+  /* FEATURED WIDE CARD */
+  .port-card-featured {
+    display: block;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(45,125,210,0.2);
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 1.5rem;
+    transition: all 0.35s;
+    background: #05111e;
+  }
+
+  .port-card-featured:hover {
+    border-color: rgba(45,125,210,0.5);
+    box-shadow: 0 16px 60px rgba(0,0,0,0.5), 0 0 40px rgba(45,125,210,0.08);
+    transform: translateY(-3px);
+  }
+
+  .port-card-featured img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.5s ease;
+    filter: brightness(0.92);
+  }
+
+  .port-card-featured:hover img {
+    transform: scale(1.02);
+    filter: brightness(1);
+  }
+
+  .port-card-featured .port-featured-body {
+    padding: 1.5rem 2rem 1.75rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    background: rgba(14,26,42,0.85);
+    border-top: 1px solid rgba(45,125,210,0.15);
+  }
+
+  .port-featured-body .port-featured-text { flex: 1; }
+
+  .port-featured-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(200,169,110,0.3);
+    background: rgba(200,169,110,0.06);
+    padding: 0.25rem 0.7rem;
+    border-radius: 2px;
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 700px) {
+    .port-card-featured img { height: 200px; }
+    .port-card-featured .port-featured-body { flex-direction: column; gap: 0.75rem; }
+  }
+
   /* VIDEO EMBED */
   .video-section {
     border-top: 1px solid rgba(255,255,255,0.05);
@@ -772,6 +840,28 @@
 <section id="portfolio">
   <p class="section-label reveal">Portfolio</p>
   <h2 class="section-title reveal">Selected Work</h2>
+
+  <!-- FEATURED: Tesla HUD Render — full-width panoramic -->
+  <a class="port-card-featured reveal" href="#" target="_blank" rel="noopener">
+    <img
+      src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/TeslaRenderV2_2Dark.jpg"
+      alt="Tesla Technology HUD Infographic Render"
+      loading="lazy"
+    >
+    <div class="port-featured-body">
+      <div class="port-featured-text">
+        <p class="port-type" style="margin-bottom:0.5rem;">Motion Graphics · HUD Design · 3D Visualization</p>
+        <h3 class="port-title" style="margin-bottom:0.5rem;">Tesla Technology Breakdown — Cinematic HUD Infographic</h3>
+        <p class="port-desc" style="margin-bottom:0;">
+          Panoramic HUD-driven infographic breaking down Tesla's core technology systems — batteries, AI autopilot, propulsion,
+          electric motors, wireless updates, and lean manufacturing — using a cinematic dark-field aesthetic with layered
+          cyan and amber data overlays.
+        </p>
+      </div>
+      <span class="port-featured-badge">Featured Work</span>
+    </div>
+  </a>
+
   <div class="portfolio-grid">
 
     <a class="port-card-img reveal" href="https://youtu.be/DXjaqKrhVPo?si=9T5bAfp_bsC3fmx5" target="_blank" rel="noopener">
@@ -948,9 +1038,9 @@
       in the Dayton/Wright-Patterson area or remote. Active DoD Secret Clearance.
     </p>
     <div class="contact-links reveal">
-      <a class="contact-item" href="mailto:nviola18@gmail.com">
+      <a class="contact-item" href="/cdn-cgi/l/email-protection#bfd1c9d6d0d3de8e87ffd8d2ded6d391dcd0d2">
         <span class="contact-item-label">Email</span>
-        <span class="contact-item-value">nviola18@gmail.com</span>
+        <span class="contact-item-value"><span class="__cf_email__" data-cfemail="aec0d8c7c1c2cf9f96eec9c3cfc7c280cdc1c3">[email&#160;protected]</span></span>
       </a>
       <a class="contact-item" href="tel:3157944113">
         <span class="contact-item-label">Phone</span>
@@ -970,7 +1060,7 @@
   <span class="clearance-badge">Active DoD Secret Clearance</span>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   document.body.classList.add('js-ready');
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver((entries) => {
@@ -989,13 +1079,4 @@
     let current = '';
     sections.forEach((section) => {
     const sectionTop = section.offsetTop - 100;
-    if (window.scrollY >= sectionTop) current = section.getAttribute('id');
-  });
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href') === '#' + current) link.classList.add('active');
-  });
-  });
-</script>
-</body>
-</html>
+    if (window.scrollY >= se
