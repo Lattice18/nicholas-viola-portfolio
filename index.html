@@ -245,13 +245,15 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 1.5rem;
+      align-items: start;
     }
     .card {
       background: var(--bg3);
       border: 1px solid var(--border);
       overflow: hidden;
       text-decoration: none;
-      display: block;
+      display: flex;
+      flex-direction: column;
       transition: border-color 0.2s, transform 0.2s;
     }
     .card:hover { border-color: var(--cyan); transform: translateY(-3px); }
@@ -264,7 +266,7 @@
       transition: filter 0.3s;
     }
     .card:hover .card-img { filter: saturate(1); }
-    .card-body { padding: 1.4rem; }
+    .card-body { padding: 1.4rem; flex: 1; }
     .card-meta {
       font-family: var(--ff-mono);
       font-size: 0.65rem;
@@ -617,7 +619,7 @@
 
       <a class="card" href="#">
         <img class="card-img"
-          src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/TeslaRenderV2_2Dark.jpg"
+          src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/TeslaRenderV2.2Dark.jpg"
           alt="Tesla Technology HUD Infographic Render" />
         <div class="card-body">
           <div class="card-meta">Motion Graphics · HUD Design · 3D Visualization</div>
