@@ -891,18 +891,47 @@
 <div class="lightbox-overlay" id="lightbox">
   <button class="lightbox-close" id="lightbox-close">✕</button>
   <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+  <div class="lightbox-video" id="lightbox-video"></div>
   <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
+
+<style>
+  .lightbox-video {
+    display: none;
+    width: min(900px, 92vw);
+    aspect-ratio: 16/9;
+    box-shadow: 0 0 60px rgba(0,0,0,0.8);
+    transform: scale(0.95);
+    transition: transform 0.25s;
+  }
+  .lightbox-overlay.active .lightbox-video { transform: scale(1); }
+  .lightbox-video iframe { width: 100%; height: 100%; border: none; display: block; }
+</style>
 
 <script>
   const overlay   = document.getElementById('lightbox');
   const lbImg     = document.getElementById('lightbox-img');
+  const lbVideo   = document.getElementById('lightbox-video');
   const lbCaption = document.getElementById('lightbox-caption');
   const lbClose   = document.getElementById('lightbox-close');
 
-  function openLightbox(src, caption) {
+  function openImage(src, caption) {
     lbImg.src = src;
     lbImg.alt = caption;
+    lbImg.style.display = 'block';
+    lbVideo.style.display = 'none';
+    lbCaption.textContent = caption;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openVideo(videoId, caption) {
+    lbVideo.innerHTML = `<iframe
+      src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0"
+      allow="autoplay; encrypted-media; fullscreen"
+      allowfullscreen></iframe>`;
+    lbVideo.style.display = 'block';
+    lbImg.style.display = 'none';
     lbCaption.textContent = caption;
     overlay.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -911,16 +940,36 @@
   function closeLightbox() {
     overlay.classList.remove('active');
     document.body.style.overflow = '';
-    setTimeout(() => { lbImg.src = ''; }, 300);
+    setTimeout(() => {
+      lbImg.src = '';
+      lbVideo.innerHTML = '';
+    }, 300);
   }
 
-  // Attach click to all card images
+  // Extract YouTube video ID from any YT URL format
+  function getYouTubeId(url) {
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
+    return match ? match[1] : null;
+  }
+
+  // Image lightbox — card stills
   document.querySelectorAll('.card-img').forEach(img => {
     img.addEventListener('click', e => {
       e.preventDefault();
       const card = img.closest('.card');
       const title = card ? (card.querySelector('.card-title')?.textContent || '') : '';
-      openLightbox(img.src, title);
+      openImage(img.src, title);
+    });
+  });
+
+  // Video lightbox — YouTube cards
+  document.querySelectorAll('.yt-card').forEach(card => {
+    card.addEventListener('click', e => {
+      e.preventDefault();
+      const videoId = getYouTubeId(card.href);
+      if (!videoId) return;
+      const title = card.querySelector('.yt-title')?.textContent || '';
+      openVideo(videoId, title);
     });
   });
 
