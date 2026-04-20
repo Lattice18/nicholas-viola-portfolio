@@ -132,6 +132,21 @@
     .yt-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.55; }
     .yt-arrow { display: inline-block; margin-top: 0.8rem; font-family: var(--ff-mono); font-size: 0.7rem; letter-spacing: 0.1em; color: var(--cyan); }
 
+    /* ── CATEGORY NAV ── */
+    .cat-nav { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 4rem; }
+    .cat-nav-btn {
+      font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.12em;
+      text-transform: uppercase; text-decoration: none;
+      padding: 0.55rem 1.2rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(0,210,255,0.03);
+      transition: all 0.2s;
+    }
+    .cat-nav-btn:hover { border-color: var(--cyan); color: var(--cyan); background: rgba(0,210,255,0.06); }
+    .cat-nav-btn.active { border-color: var(--cyan); color: var(--cyan); background: rgba(0,210,255,0.08); }
+    @media (max-width: 768px) { .cat-nav { gap: 0.5rem; } .cat-nav-btn { font-size: 0.62rem; padding: 0.45rem 0.9rem; } }
+
     /* ── SKILLS ── */
     #skills { background: var(--bg); }
     .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
@@ -303,6 +318,14 @@
   <div class="container">
     <div class="section-label">Selected Work</div>
     <div class="section-title">Portfolio</div>
+
+    <!-- CATEGORY NAV -->
+    <div class="cat-nav">
+      <a class="cat-nav-btn active" href="#cat-viz">3D Visualization &amp; Graphic Design</a>
+      <a class="cat-nav-btn" href="#cat-motion">Motion &amp; Animation</a>
+      <a class="cat-nav-btn" href="#cat-sculpt">Digital Sculpting</a>
+      <a class="cat-nav-btn" href="#cat-product">Product Visualization</a>
+    </div>
 
     <!-- 01 · 3D VISUALIZATION & GRAPHIC DESIGN -->
     <div class="work-category" id="cat-viz">
@@ -931,7 +954,7 @@
         <a class="contact-link" href="mailto:nviola18@gmail.com"><span class="cl-type">Email</span><span class="cl-label">nviola18@gmail.com</span></a>
         <a class="contact-link" href="tel:3157944113"><span class="cl-type">Phone</span><span class="cl-label">315-794-4113</span></a>
         <a class="contact-link" href="https://linkedin.com/in/nicholas-viola-4a818021" target="_blank" rel="noopener"><span class="cl-type">LinkedIn</span><span class="cl-label">nicholas-viola</span></a>
-        <a class="contact-link" href="https://lattice18.github.io/nicholas-viola-portfolio" target="_blank" rel="noopener"><span class="cl-type">Portfolio</span><span class="cl-label">lattice18.github.io/nicholas-viola-portfolio</span></a>
+        <a class="contact-link" href="https://www.nicholasviola.com" target="_blank" rel="noopener"><span class="cl-type">Portfolio</span><span class="cl-label">www.nicholasviola.com</span></a>
       </div>
     </div>
   </div>
@@ -961,6 +984,21 @@
 </style>
 
 <script>
+  // Category nav active state on scroll
+  const catSections = ['cat-viz','cat-motion','cat-sculpt','cat-product'];
+  const catBtns = document.querySelectorAll('.cat-nav-btn');
+  function updateCatNav() {
+    let current = catSections[0];
+    catSections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top <= 120) current = id;
+    });
+    catBtns.forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', updateCatNav, { passive: true });
+
   const overlay   = document.getElementById('lightbox');
   const lbImg     = document.getElementById('lightbox-img');
   const lbVideo   = document.getElementById('lightbox-video');
