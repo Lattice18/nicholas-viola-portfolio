@@ -68,7 +68,7 @@
     .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
     .pill { font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1px solid var(--border); color: var(--muted); background: rgba(0,210,255,0.03); }
     .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn { font-family: var(--ff-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 0.8rem 2rem; transition: all 0.2s; cursor: pointer; border: none; }
+    .btn { font-family: var(--ff-mono); font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; padding: 0.8rem 2rem; transition: all 0.2s; cursor: pointer; border: none; display: inline-block; }
     .btn-primary { background: var(--cyan); color: #080a0c; }
     .btn-primary:hover { background: #33dbff; }
     .btn-outline { border: 1px solid var(--border); color: var(--text); background: transparent; }
@@ -106,7 +106,7 @@
     .card.card-featured .card-desc { font-size: 0.92rem; }
     .card:hover { border-color: var(--cyan); transform: translateY(-3px); }
     .card.card-featured:hover { transform: none; border-color: var(--cyan); }
-    .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: saturate(0.85); transition: filter 0.3s; }
+    .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: saturate(0.85); transition: filter 0.3s; cursor: zoom-in; }
     .card:hover .card-img { filter: saturate(1); }
     .card-body { padding: 1.4rem; flex: 1; }
     .card-meta { font-family: var(--ff-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.5rem; }
@@ -117,7 +117,6 @@
     .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
     .yt-card { display: block; text-decoration: none; background: var(--bg3); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.2s, transform 0.2s; }
     .yt-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
-    .yt-card-plain { background: var(--bg3); border: 1px solid var(--border); overflow: hidden; }
     .yt-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #000; }
     .yt-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(0.8) brightness(0.85); transition: filter 0.3s, transform 0.3s; }
     .yt-card:hover .yt-thumb img { filter: saturate(1) brightness(1); transform: scale(1.03); }
@@ -170,8 +169,16 @@
     .edu-label { font-family: var(--ff-mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
     .edu-degree { font-family: var(--ff-head); font-size: 1.1rem; letter-spacing: 0.04em; color: var(--white); }
     .edu-school { font-size: 0.85rem; color: var(--text); margin-top: 0.15rem; }
-    .game-credits { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
-    .credit-badge { border: 1px solid var(--border); padding: 0.5rem 1rem; font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); }
+    .game-credits { margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .credit-badge {
+      border: 1px solid rgba(245,166,35,0.4);
+      padding: 0.6rem 1.2rem;
+      font-family: var(--ff-mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber);
+      background: rgba(245,166,35,0.05);
+      box-shadow: 0 0 12px rgba(245,166,35,0.08);
+    }
 
     /* ── CONTACT ── */
     #contact { background: var(--bg); border-top: 1px solid var(--border); }
@@ -185,6 +192,7 @@
     .clearance-badge { display: inline-flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(245,166,35,0.3); padding: 0.6rem 1.2rem; margin-top: 1.5rem; }
     .clearance-badge::before { content: '◆'; color: var(--amber); font-size: 0.6rem; }
     .clearance-badge span { font-family: var(--ff-mono); font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--amber); }
+    .resume-btn-wrap { margin-top: 1.5rem; }
 
     /* ── FOOTER ── */
     footer { text-align: center; padding: 2rem 3rem; font-family: var(--ff-mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--muted); border-top: 1px solid var(--border); }
@@ -199,6 +207,7 @@
     }
     .lightbox-overlay.active { opacity: 1; pointer-events: all; }
     .lightbox-img {
+      display: none;
       max-width: 92vw; max-height: 90vh;
       object-fit: contain;
       box-shadow: 0 0 60px rgba(0,0,0,0.8);
@@ -222,9 +231,16 @@
       color: var(--muted); text-align: center;
       white-space: nowrap;
     }
-
-    /* Make card images show pointer so they feel clickable */
-    .card-img { cursor: zoom-in; }
+    .lightbox-video {
+      display: none;
+      width: min(900px, 92vw);
+      aspect-ratio: 16/9;
+      box-shadow: 0 0 60px rgba(0,0,0,0.8);
+      transform: scale(0.95);
+      transition: transform 0.25s;
+    }
+    .lightbox-overlay.active .lightbox-video { transform: scale(1); }
+    .lightbox-video iframe { width: 100%; height: 100%; border: none; display: block; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
@@ -325,6 +341,7 @@
       <a class="cat-nav-btn" href="#cat-motion">Motion &amp; Animation</a>
       <a class="cat-nav-btn" href="#cat-sculpt">Digital Sculpting</a>
       <a class="cat-nav-btn" href="#cat-product">Product Visualization</a>
+      <a class="cat-nav-btn" href="#cat-elearn">e-Learning &amp; Training</a>
     </div>
 
     <!-- 01 · 3D VISUALIZATION & GRAPHIC DESIGN -->
@@ -365,6 +382,7 @@
           </div>
         </a>
 
+        <!-- Rocket Lab — trimmed to concept + 3 strongest views -->
         <a class="card" href="#">
           <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/EdwardsRocketHeritageRendersNV02.jpeg" alt="Rocket Lab Room Design Concept Render" />
           <div class="card-body">
@@ -384,47 +402,11 @@
         </a>
 
         <a class="card" href="#">
-          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/HeritageRender_Compress_2.jpg" alt="Rocket Lab Room Design View 02" />
-          <div class="card-body">
-            <div class="card-meta">3D Rendering · Air Force Heritage</div>
-            <div class="card-title">Rocket Lab Room Design — View 02</div>
-            <p class="card-desc">Alternate angle showcasing spatial composition, material detail, and lighting across the full installation space.</p>
-          </div>
-        </a>
-
-        <a class="card" href="#">
-          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/HeritageRender_Compress_3.jpg" alt="Rocket Lab Room Design View 03" />
-          <div class="card-body">
-            <div class="card-meta">3D Rendering · Air Force Heritage</div>
-            <div class="card-title">Rocket Lab Room Design — View 03</div>
-            <p class="card-desc">Supporting fabrication planning and approval workflows for a permanent Air Force installation.</p>
-          </div>
-        </a>
-
-        <a class="card" href="#">
           <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/HeritageRender_Compress_4.jpg" alt="Rocket Lab Room Design View 04" />
           <div class="card-body">
             <div class="card-meta">3D Rendering · Air Force Heritage</div>
             <div class="card-title">Rocket Lab Room Design — View 04</div>
             <p class="card-desc">Focus on material surface quality, environmental props, and spatial storytelling for an immersive installation.</p>
-          </div>
-        </a>
-
-        <a class="card" href="#">
-          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/HeritageRender_Compress_5.jpg" alt="Rocket Lab Room Design View 05" />
-          <div class="card-body">
-            <div class="card-meta">3D Rendering · Air Force Heritage</div>
-            <div class="card-title">Rocket Lab Room Design — View 05</div>
-            <p class="card-desc">Lighting transitions and close-up material fidelity across key focal areas of the installation design.</p>
-          </div>
-        </a>
-
-        <a class="card" href="#">
-          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/HeritageRender_Compress_6.jpg" alt="Rocket Lab Room Design View 06" />
-          <div class="card-body">
-            <div class="card-meta">3D Rendering · Air Force Heritage</div>
-            <div class="card-title">Rocket Lab Room Design — View 06</div>
-            <p class="card-desc">Wide-angle view showcasing full spatial layout, ceiling detail, and integrated display elements across the complete installation footprint.</p>
           </div>
         </a>
 
@@ -518,6 +500,15 @@
           </div>
         </a>
 
+        <a class="card" href="#">
+          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/FogSheet01%20copy%20(1).jpg" alt="FOG Concepts — Brand Style Sheet" />
+          <div class="card-body">
+            <div class="card-meta">Branding · Style Guide</div>
+            <div class="card-title">FOG Concepts — Brand Style Sheet</div>
+            <p class="card-desc">Full brand style sheet documenting color palette, typography, logo usage rules, and visual system guidelines developed as part of the FOG Concepts identity project.</p>
+          </div>
+        </a>
+
       </div>
     </div><!-- /01 -->
 
@@ -539,9 +530,9 @@
             <div class="yt-play"><div class="yt-play-btn"></div></div>
           </div>
           <div class="yt-body">
-            <div class="yt-tag">Training Content · DoD · eLearning</div>
+            <div class="yt-tag">Training Content · DoD · e-Learning</div>
             <div class="yt-title">AFRL Tech: Low Cost Attritable Aircraft Platform Sharing</div>
-            <p class="yt-desc">Narrative-driven training and eLearning video combining motion graphics, video editing, and audience-focused visual storytelling — produced for Air Force stakeholders and DoD instructional communications.</p>
+            <p class="yt-desc">Narrative-driven training and e-Learning video combining motion graphics, video editing, and audience-focused visual storytelling — produced for Air Force stakeholders and DoD instructional communications.</p>
             <span class="yt-arrow">Watch on YouTube ↗</span>
           </div>
         </a>
@@ -578,9 +569,9 @@
             <div class="yt-play"><div class="yt-play-btn"></div></div>
           </div>
           <div class="yt-body">
-            <div class="yt-tag">YouTube · AI Production · eLearning</div>
+            <div class="yt-tag">YouTube · AI Production · e-Learning</div>
             <div class="yt-title">AI/Unreal Animation Examples</div>
-            <p class="yt-desc">AI-assisted pipeline using Veo3, Kling, and LTX2 — applied to DoD occupational medicine eLearning modules, with systematic prompt engineering ensuring character consistency and cinematic quality across multi-episode training sequences.</p>
+            <p class="yt-desc">AI-assisted pipeline using Veo3, Kling, and LTX2 — applied to DoD occupational medicine e-Learning modules, with systematic prompt engineering ensuring character consistency and cinematic quality across multi-episode training sequences.</p>
             <span class="yt-arrow">Watch on YouTube ↗</span>
           </div>
         </a>
@@ -807,7 +798,7 @@
           <div class="yt-body">
             <div class="yt-tag">YouTube · Product Animation · Training</div>
             <div class="yt-title">Narda — 360° Product Rotation</div>
-            <p class="yt-desc">Turntable product animation of the Narda device — developed for DoD occupational medicine eLearning modules, enabling trainees to visually identify equipment in clean studio conditions with full material and form detail.</p>
+            <p class="yt-desc">Turntable product animation of the Narda device — developed for DoD occupational medicine e-Learning modules, enabling trainees to visually identify equipment in clean studio conditions with full material and form detail.</p>
             <span class="yt-arrow">Watch on YouTube ↗</span>
           </div>
         </a>
@@ -820,7 +811,7 @@
           <div class="yt-body">
             <div class="yt-tag">YouTube · Product Animation · Training</div>
             <div class="yt-title">Verifinder — 360° Product Rotation</div>
-            <p class="yt-desc">360° turntable animation of the Verifinder — produced for Air Force occupational medicine eLearning, giving trainees a full-resolution view of form, material, and industrial design detail for equipment identification and recognition.</p>
+            <p class="yt-desc">360° turntable animation of the Verifinder — produced for Air Force occupational medicine e-Learning, giving trainees a full-resolution view of form, material, and industrial design detail for equipment identification and recognition.</p>
             <span class="yt-arrow">Watch on YouTube ↗</span>
           </div>
         </a>
@@ -833,7 +824,7 @@
           <div class="yt-body">
             <div class="yt-tag">YouTube · Product Animation · Training</div>
             <div class="yt-title">DR900 — 360° Product Rotation</div>
-            <p class="yt-desc">Turntable product render of the DR900 — part of an Air Force eLearning asset library, with photorealistic material work and precise lighting developed to support occupational medicine training and equipment recognition.</p>
+            <p class="yt-desc">Turntable product render of the DR900 — part of an Air Force e-Learning asset library, with photorealistic material work and precise lighting developed to support occupational medicine training and equipment recognition.</p>
             <span class="yt-arrow">Watch on YouTube ↗</span>
           </div>
         </a>
@@ -846,13 +837,73 @@
           <div class="yt-body">
             <div class="yt-tag">YouTube · Product Animation · Training</div>
             <div class="yt-title">Multirae — 360° Product Rotation</div>
-            <p class="yt-desc">Full 360° rotation of the Multirae device — part of a DoD eLearning asset suite, showcasing housing geometry, port and button detail, and surface accuracy for occupational medicine training and hazard-monitoring equipment familiarization.</p>
+            <p class="yt-desc">Full 360° rotation of the Multirae device — part of a DoD e-Learning asset suite, showcasing housing geometry, port and button detail, and surface accuracy for occupational medicine training and hazard-monitoring equipment familiarization.</p>
             <span class="yt-arrow">Watch on YouTube ↗</span>
           </div>
         </a>
 
       </div>
     </div><!-- /04 -->
+
+
+    <!-- 05 · eLEARNING & TRAINING DESIGN -->
+    <div class="work-category" id="cat-elearn">
+      <div class="cat-header">
+        <div class="cat-number">05</div>
+        <div class="cat-title-block">
+          <div class="cat-label">Articulate Storyline · USAFSAM · DoD Instructional Design</div>
+          <div class="cat-title">e-Learning &amp; Training Design</div>
+        </div>
+      </div>
+      <div class="portfolio-grid">
+
+        <a class="card card-featured" href="#">
+          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/FOUS_DarkerSky%20copy.jpg" alt="AFRL Occupational Medicine — Course Header" />
+          <div class="card-body">
+            <div class="card-meta">e-Learning · DoD · USAFSAM</div>
+            <div class="card-title">AFRL Occupational Medicine — Course Series</div>
+            <p class="card-desc">Multi-episode e-Learning series developed for USAFSAM covering occupational medicine standards for Air Force personnel. Full production pipeline — AI video, motion graphics, Articulate Storyline interactives, and 3D product animations — built to DoD instructional design and OPSEC compliance standards.</p>
+          </div>
+        </a>
+
+        <a class="card" href="#">
+          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/BL6U3.23.7wText.jpg" alt="Medical Consultation Scenario" />
+          <div class="card-body">
+            <div class="card-meta">e-Learning · Scenario Design</div>
+            <div class="card-title">Medical Consultation Scenario</div>
+            <p class="card-desc">Scenario-based learning module featuring a military medical consultation workflow — combining AI-generated imagery and instructional narrative for occupational medicine training.</p>
+          </div>
+        </a>
+
+        <a class="card" href="#">
+          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/ButtonSizeLayoutExample.jpg" alt="Security Forces Assessment Interface" />
+          <div class="card-body">
+            <div class="card-meta">e-Learning · UI Design · Articulate Storyline</div>
+            <div class="card-title">Security Forces — Physical &amp; Cognitive Assessment UI</div>
+            <p class="card-desc">Interactive assessment interface layout for the Security Forces medical standards module — physical ability, sensory skill, and cognitive control categories designed for Articulate Storyline delivery to DoD e-Learning standards.</p>
+          </div>
+        </a>
+
+        <a class="card" href="#">
+          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/Exercise4.jpg" alt="Case 4 — Asthma/COPD Interactive Exercise" />
+          <div class="card-body">
+            <div class="card-meta">e-Learning · Case Study · Interactive</div>
+            <div class="card-title">Case 4 — Asthma / COPD Interactive Exercise</div>
+            <p class="card-desc">Scenario-driven case study requiring trainees to determine duty status based on presented medical evidence — multiple-choice branching exercise built in Articulate Storyline for occupational medicine training.</p>
+          </div>
+        </a>
+
+        <a class="card" href="#">
+          <img class="card-img" src="https://raw.githubusercontent.com/Lattice18/nicholas-viola-portfolio/main/Exercise3.jpg" alt="Case 3 — Epilepsy/Seizure Interactive Exercise" />
+          <div class="card-body">
+            <div class="card-meta">e-Learning · Case Study · Interactive</div>
+            <div class="card-title">Case 3 — Epilepsy / Seizure Interactive Exercise</div>
+            <p class="card-desc">Interactive epilepsy and seizure case exercise — scenario-driven assessment built in Articulate Storyline for Air Force occupational medicine training, guiding medical personnel through duty-status determination workflows.</p>
+          </div>
+        </a>
+
+      </div>
+    </div><!-- /05 -->
 
   </div>
 </section><!-- /work -->
@@ -890,6 +941,18 @@
         </ul>
       </div>
       <div class="skill-group">
+        <div class="skill-group-title">e-Learning &amp; Training</div>
+        <ul class="skill-list">
+          <li>Articulate Storyline 360</li>
+          <li>Instructional Design</li>
+          <li>Scenario-Based Learning</li>
+          <li>DoD e-Learning Standards</li>
+          <li>USAFSAM / AFRL Content</li>
+          <li>Interactive Exercise Design</li>
+          <li>AI Video for Training</li>
+        </ul>
+      </div>
+      <div class="skill-group">
         <div class="skill-group-title">Program Management</div>
         <ul class="skill-list">
           <li>Budget Tracking &amp; Reporting</li>
@@ -921,7 +984,7 @@
             <li>Lead a 6–8 person creative team producing episodic multimedia content for AFRL and defense audiences across 100+ deliverables</li>
             <li>Managed budgets, timesheets, and production assignments across concurrent DoD contracts — ensuring on-time delivery within scope and resource constraints</li>
             <li>Pioneered AI-assisted video pipeline using Veo3, Kling, and LTX2, reducing production time by 40%</li>
-            <li>Produced multi-episode eLearning modules for USAFSAM occupational medicine training — including AI video, 3D product animations, and motion graphics — meeting DoD instructional design standards</li>
+            <li>Produced multi-episode e-Learning modules for USAFSAM occupational medicine training — including AI video, 3D product animations, and motion graphics — meeting DoD instructional design standards</li>
             <li>Collaborated directly with Air Force program managers and SMEs through structured review cycles</li>
             <li>Developed prompt engineering frameworks ensuring character consistency and brand compliance across multi-clip sequences</li>
             <li>Contributed visual assets to a DARPA SHAPE proposal for a DoD Anthropometric Data Platform</li>
@@ -974,6 +1037,7 @@
       </div>
       <div class="edu-item">
         <div class="edu-label">AAA Game Credits</div>
+        <div style="font-size:0.85rem; color:var(--text); margin-bottom:0.75rem; margin-top:0.25rem;">Cinematic &amp; character art contributions to shipped AAA titles</div>
         <div class="game-credits">
           <span class="credit-badge">Dragon Age: Origins</span>
           <span class="credit-badge">Call of Duty: Modern Warfare</span>
@@ -993,12 +1057,15 @@
       <div>
         <p class="contact-intro">Available for Animation Director, AI Video Production, and Creative Director roles — in the Dayton/Wright-Patterson area or remote.</p>
         <div class="clearance-badge"><span>Active DoD Secret Clearance</span></div>
+        <div class="resume-btn-wrap">
+          <a class="btn btn-outline" href="NicholasViola_Resume.pdf" target="_blank" rel="noopener">Download Resume ↓</a>
+        </div>
       </div>
       <div class="contact-links">
         <a class="contact-link" href="mailto:nviola18@gmail.com"><span class="cl-type">Email</span><span class="cl-label">nviola18@gmail.com</span></a>
         <a class="contact-link" href="tel:3157944113"><span class="cl-type">Phone</span><span class="cl-label">315-794-4113</span></a>
         <a class="contact-link" href="https://linkedin.com/in/nicholas-viola-4a818021" target="_blank" rel="noopener"><span class="cl-type">LinkedIn</span><span class="cl-label">nicholas-viola</span></a>
-        <a class="contact-link" href="https://www.nicholasviola.com" target="_blank" rel="noopener"><span class="cl-type">Portfolio</span><span class="cl-label">www.nicholasviola.com</span></a>
+        <a class="contact-link" href="https://lattice18.github.io/nicholas-viola-portfolio/" target="_blank" rel="noopener"><span class="cl-type">GitHub</span><span class="cl-label">lattice18.github.io/nicholas-viola-portfolio</span></a>
       </div>
     </div>
   </div>
@@ -1014,22 +1081,9 @@
   <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
 
-<style>
-  .lightbox-video {
-    display: none;
-    width: min(900px, 92vw);
-    aspect-ratio: 16/9;
-    box-shadow: 0 0 60px rgba(0,0,0,0.8);
-    transform: scale(0.95);
-    transition: transform 0.25s;
-  }
-  .lightbox-overlay.active .lightbox-video { transform: scale(1); }
-  .lightbox-video iframe { width: 100%; height: 100%; border: none; display: block; }
-</style>
-
 <script>
   // Category nav active state on scroll
-  const catSections = ['cat-viz','cat-motion','cat-sculpt','cat-product'];
+  const catSections = ['cat-viz','cat-motion','cat-sculpt','cat-product','cat-elearn'];
   const catBtns = document.querySelectorAll('.cat-nav-btn');
   function updateCatNav() {
     let current = catSections[0];
@@ -1076,17 +1130,16 @@
     document.body.style.overflow = '';
     setTimeout(() => {
       lbImg.src = '';
+      lbImg.style.display = 'none';
       lbVideo.innerHTML = '';
     }, 300);
   }
 
-  // Extract YouTube video ID from any YT URL format
   function getYouTubeId(url) {
     const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
     return match ? match[1] : null;
   }
 
-  // Image lightbox — card stills
   document.querySelectorAll('.card-img').forEach(img => {
     img.addEventListener('click', e => {
       e.preventDefault();
@@ -1096,7 +1149,6 @@
     });
   });
 
-  // Video lightbox — YouTube cards
   document.querySelectorAll('.yt-card').forEach(card => {
     card.addEventListener('click', e => {
       e.preventDefault();
@@ -1107,7 +1159,6 @@
     });
   });
 
-  // Close on overlay click, close button, or Escape
   overlay.addEventListener('click', e => { if (e.target === overlay) closeLightbox(); });
   lbClose.addEventListener('click', closeLightbox);
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
